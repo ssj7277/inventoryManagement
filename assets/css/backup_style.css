@@ -1,0 +1,30 @@
+ 
+body {	
+	/*margin-left: 20px;*/
+	margin: 0 auto;
+	max-width: 540px;
+	min-width: 540px;
+}
+
+#add_form_entry {
+	width: 500px;
+	border: 30px solid #dddddd;
+	padding: 10px;
+}
+
+#insertBtn{
+	margin-bottom: 10px;
+}
+
+#frm.input{
+	margin-bottom: 10px;
+}
+
+.form-label{
+	margin-top: 5px;
+}
+
+.form-control{
+	max-width: 500px;
+}
+

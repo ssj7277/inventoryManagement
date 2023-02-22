@@ -1,0 +1,114 @@
+header {
+	min-height: 50px;
+}
+
+.main_body {
+	min-height: 650px;
+	margin: 20px;
+}
+
+footer {
+	margin: 20px;
+}
+
+/* insert */
+.insert_body {
+	margin: 20px;
+	max-width: 700px;
+}
+
+.insert_frm input {
+	margin-bottom: 20px;	
+	max-width: 718px;
+}
+
+/*insert Comment*/
+#commEditBtn {
+	position: absolute;
+	width: 80px;
+	height: 70px;
+	margin-left: 12px;
+}
+#commEditUser {
+	margin-bottom: 5px;
+}
+
+
+/* select */
+.select_body {
+	min-width: 1400px;
+	margin-left: 1em;
+}
+
+.select_filedset {
+	margin-bottom: 20px;
+}
+
+/* select_table */
+.select_table {
+	margin-bottom: 20px;
+	table-layout:fixed;
+}
+
+.select_table th {
+	border: 1px solid black;
+	font-size: 1.2em;
+	padding: 7px;
+	text-align: center;
+}
+
+.select_table td {
+	border: 1px solid black;
+	padding: 5px;
+	text-align: center;
+}
+
+/* 회사 조회 댓글 */
+.select_table_comment {
+	margin: auto;
+	table-layout: fixed;
+	word-break: break-all;
+	min-width: 680px;
+}
+
+.select_table_comment th {
+	border: 1px solid black;
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.select_table_comment td {
+	border: 1px solid black;
+	padding: 5px;
+	text-align: center;
+}
+
+
+.select_btn {
+	max-width: 570px;
+}
+
+.comment_view {
+	border: 1px solid;
+	max-width: 710px;
+	padding: 10px;
+	/* border-radius: 2em; 둥글게 */
+	
+}
+
+.comment_edit {
+	margin-top: 2px;
+	border: 1px solid;	
+	max-width: 710px;
+	padding: 10px;
+	/* border-radius: 2em; 둥글게 */	
+}
+
+.commContent {
+	width: 600px;
+	height: 70px;
+}
+
+/*pagination */
+.pagination li{font-size: 2em; text-align: center; width: 3rem; height: 3rem; }
+
