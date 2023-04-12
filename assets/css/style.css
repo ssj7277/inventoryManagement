@@ -18,7 +18,7 @@ footer {
 }
 
 .insert_frm input {
-	margin-bottom: 20px;	
+	margin-bottom: 20px;
 	max-width: 718px;
 }
 
@@ -29,9 +29,11 @@ footer {
 	height: 70px;
 	margin-left: 12px;
 }
+
 #commEditUser {
 	margin-bottom: 5px;
 }
+
 /**/
 
 
@@ -48,7 +50,7 @@ footer {
 /* select_table */
 .select_table {
 	margin-bottom: 20px;
-	table-layout:fixed;
+	table-layout: fixed;
 }
 
 .select_table th {
@@ -94,15 +96,15 @@ footer {
 	max-width: 710px;
 	padding: 10px;
 	/* border-radius: 2em; 둥글게 */
-	
+
 }
 
 .comment_edit {
 	margin-top: 2px;
-	border: 1px solid;	
+	border: 1px solid;
 	max-width: 710px;
 	padding: 10px;
-	/* border-radius: 2em; 둥글게 */	
+	/* border-radius: 2em; 둥글게 */
 }
 
 .commContent {
@@ -111,5 +113,9 @@ footer {
 }
 
 /*pagination */
-.pagination li{font-size: 2em; text-align: center; width: 3rem; height: 3rem; }
-
+.pagination li {
+	font-size: 2em;
+	text-align: center;
+	width: 3rem;
+	height: 3rem;
+}

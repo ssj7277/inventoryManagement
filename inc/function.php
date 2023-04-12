@@ -1,14 +1,14 @@
 <?php
 //error 결과 출력
-error_reporting(E_ALL);
+error_reporting( E_ALL );
 
-ini_set('display_errors', '1');
+ini_set( 'display_errors', '1' );
 
 //리퍼러 체크
 
-function check_referer($url = '')
+function check_referer( $url = '' )
 {
-    if (strpos($_SERVER['HTTP_REFERER'], $url) !== FALSE && !empty($url)) {
+    if (strpos( $_SERVER['HTTP_REFERER'], $url ) !== FALSE && !empty( $url )) {
 
     } else {
         //  $code = 404;

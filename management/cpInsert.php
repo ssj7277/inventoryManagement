@@ -1,11 +1,11 @@
 <?php
 //config
-require_once('/var/www/html/inven/inc/config.php');
+require_once( '/var/www/html/inven/inc/config.php' );
 //require_once('./../inc/config.php');
 
 $arrRtn = array(
     'code' => 500,
-    'msg' => ''
+    'msg'  => ''
 );
 
 ?>

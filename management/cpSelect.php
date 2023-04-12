@@ -6,32 +6,32 @@ require_once __DIR__ . '/../lib/paging.php';
 //변수 정리
 $arrRtn = array(
 	'code' => 500,
-	'msg' => ''
+	'msg'  => ''
 );
 
 try {
 
 	//파라미터 정리
-	$page = !empty($_GET['page']) ? $_GET['page'] : 1;
-	$searchType = isset($_GET['searchType']) ? $_GET['searchType'] : '';
-	$searchText = isset($_GET['searchText']) ? $_GET['searchText'] : '';
+	$page       = !empty( $_GET['page'] ) ? $_GET['page'] : 1;
+	$searchType = isset( $_GET['searchType'] ) ? $_GET['searchType'] : '';
+	$searchText = isset( $_GET['searchText'] ) ? $_GET['searchText'] : '';
 
 	//필수 파라미터 체크
-	if (!is_numeric($page)) {
+	if (!is_numeric( $page )) {
 		$page = 1;
 	}
 
 
 	//변수 정리
-	$size = PAGING_SIZE;
-	$offset = ($page - 1) * $size;
-	$scale = PAGING_SCALE;
-	$where = '';
-	$total = 0;
+	$size   = PAGING_SIZE;
+	$offset = ( $page - 1 ) * $size;
+	$scale  = PAGING_SCALE;
+	$where  = '';
+	$total  = 0;
 
 	//검색
-	$searchType = $_mysqli->real_escape_string($searchType);
-	$searchText = $_mysqli->real_escape_string($searchText);
+	$searchType = $_mysqli->real_escape_string( $searchType );
+	$searchText = $_mysqli->real_escape_string( $searchText );
 	if ($searchText) {
 		$where .= "AND {$searchType} LIKE '%{$searchText}%' ";
 	}
@@ -48,17 +48,17 @@ try {
     ";
 
 
-	$cp_result = $_mysqli->query($query);
+	$cp_result = $_mysqli->query( $query );
 	if (!$cp_result) {
 		$code = 502;
-		$msg = "조회 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
-		throw new mysqli_sql_exception($msg, $code);
+		$msg  = "조회 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
+		throw new mysqli_sql_exception( $msg, $code );
 	}
 
 
-	$sub_result = $_mysqli->query("SELECT FOUND_ROWS() AS total");
+	$sub_result  = $_mysqli->query( "SELECT FOUND_ROWS() AS total" );
 	$sub_dbarray = $sub_result->fetch_array();
-	$total = $sub_dbarray['total'];
+	$total       = $sub_dbarray['total'];
 	$sub_result->free();
 
 	//페이징
@@ -66,26 +66,26 @@ try {
 		'searchType' => $searchType,
 		'searchText' => $searchText
 	);
-	$param = http_build_query($arrParams);
-	$_pg = new PAGING($total, $page, $arrParams, $size, $scale);
+	$param     = http_build_query( $arrParams );
+	$_pg       = new PAGING( $total, $page, $arrParams, $size, $scale );
 
 
 
 	//검색
-	$searchType = $_mysqli->real_escape_string($searchType);
-	$searchText = $_mysqli->real_escape_string($searchText);
+	$searchType = $_mysqli->real_escape_string( $searchType );
+	$searchText = $_mysqli->real_escape_string( $searchText );
 	if ($searchText) {
 		$where .= "AND {$searchType} LIKE '%{$searchText}%' ";
 	}
 
 } catch (mysqli_sql_exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 } catch (Exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 } finally {
 
 }
@@ -186,57 +186,57 @@ try {
 						//회사 리스트
 						if ($total > 0) {
 							$no = $total - $offset;
-							while ($dbCp = $cp_result->fetch_assoc()) {
-								$cpName = mb_strimwidth($dbCp['name'], 0, 64, "...", "utf-8");
-								$cpSeq = $dbCp['serial']; ?>
-								<tr>
-									<td>
-										<?php echo $no ?>
-									</td>
-									<td>
-										<?php echo $dbCp['companyType'] ?>
-									</td>
-									<td><button type="button" class="btn btn-outline-dark" id=<?php echo $cpSeq ?>
-											onclick="cp_click(this.id)"><?php echo $cpName ?></button></td>
-									<td>
-										<?php echo $dbCp['phone'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['fax'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['address'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['ceoName'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['email'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['regiNumber'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['contactName'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['uptae'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['upjong'] ?>
-									</td>
-									<td>
-										<?php echo $dbCp['counter'] ?>
-									</td>
-								</tr>
-								<?php $no--;
+							while ( $dbCp = $cp_result->fetch_assoc() ) {
+								$cpName = mb_strimwidth( $dbCp['name'], 0, 64, "...", "utf-8" );
+								$cpSeq  = $dbCp['serial']; ?>
+							  <tr>
+								  <td>
+							  		<?php echo $no ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['companyType'] ?>
+								  </td>
+								  <td><button type="button" class="btn btn-outline-dark" id=<?php echo $cpSeq ?>
+										  onclick="cp_click(this.id)"><?php echo $cpName ?></button></td>
+								  <td>
+							  		<?php echo $dbCp['phone'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['fax'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['address'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['ceoName'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['email'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['regiNumber'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['contactName'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['uptae'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['upjong'] ?>
+								  </td>
+								  <td>
+							  		<?php echo $dbCp['counter'] ?>
+								  </td>
+							  </tr>
+					  		<?php $no--;
 							}
 						} else {
 							?>
-							<tr>
-								<td colspan="12">등록된 회사가 없습니다.</td>
-							</tr>
-							<?php
+						   <tr>
+							   <td colspan="12">등록된 회사가 없습니다.</td>
+						   </tr>
+					   	<?php
 						} ?>
 					</tbody>
 				</table>
@@ -256,32 +256,32 @@ try {
 
 </html>
 <script>
-	//데이터 필수 입력 체크
-	function Checkform() {
-		if (frm.cpName.value == "") {
-			frm.cpName.focus();
-			alert("회사명을 입력해 주십시오.");
+//데이터 필수 입력 체크
+function Checkform() {
+	if (frm.cpName.value == "") {
+		frm.cpName.focus();
+		alert("회사명을 입력해 주십시오.");
 
-			return false;
-		}
-		if (frm.cpCeoName.value == "") {
-			frm.cpCeoName.focus();
-			alert("대표자명을 입력해 주십시오.");
-
-			return false;
-		}
-		if (frm.cpRegiNum.value == "") {
-			frm.cpRegiNum.focus();
-			alert("사업자 등록번호 또는 개인사업자의 경우 주민번호를 입력해 주십시오.");
-
-			return false;
-		}
+		return false;
 	}
+	if (frm.cpCeoName.value == "") {
+		frm.cpCeoName.focus();
+		alert("대표자명을 입력해 주십시오.");
 
-	function cp_click(clicked_id) {
-		//alert(clicked_id);
-		var myElement = document.getElementById("seq");
-		myElement.value = clicked_id;
-		document.getElementById('company_list').submit();
+		return false;
 	}
+	if (frm.cpRegiNum.value == "") {
+		frm.cpRegiNum.focus();
+		alert("사업자 등록번호 또는 개인사업자의 경우 주민번호를 입력해 주십시오.");
+
+		return false;
+	}
+}
+
+function cp_click(clicked_id) {
+	//alert(clicked_id);
+	var myElement = document.getElementById("seq");
+	myElement.value = clicked_id;
+	document.getElementById('company_list').submit();
+}
 </script>

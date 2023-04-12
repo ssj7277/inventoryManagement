@@ -5,15 +5,15 @@ require_once __DIR__ . '/../inc/config.php';
 //변수 정리
 $arrRtn = array(
 	'code' => 500,
-	'msg' => ''
+	'msg'  => ''
 );
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting( E_ALL );
+ini_set( 'display_errors', '1' );
 
 //print_r($_SERVER['DOCUMENT_ROOT']);
 
-require_once('/vendor/autoload.php');
+require_once( '/vendor/autoload.php' );
 
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -30,7 +30,7 @@ try {
 
 	//PC파일명 및 확장자 
 	$pc_FileName = $_FILES['inputFileName']['name'];
-	$file_type = pathinfo($pc_FileName, PATHINFO_EXTENSION);
+	$file_type   = pathinfo( $pc_FileName, PATHINFO_EXTENSION );
 
 
 	//Excel File 확장자 확인
@@ -47,69 +47,69 @@ try {
 	//PhpSpreadsheet로 읽어서 배열에 저장하기
 	//서버에 업로드된 파일의 현재 시트를 읽어서 $spreadData란 배열에 저장
 
-	$spreadsheet = $reader->load($server_inputFileName);
-	$spreadData = $spreadsheet->getActiveSheet(0)->toArray(); // $spreadsheet->getSheet(1); sheet 지정 가능
+	$spreadsheet = $reader->load( $server_inputFileName );
+	$spreadData  = $spreadsheet->getActiveSheet( 0 )->toArray(); // $spreadsheet->getSheet(1); sheet 지정 가능
 
 	//print_r($spreadsheet);
 
 	//행 카운트
-	$rows = count($spreadData);
+	$rows = count( $spreadData );
 	//print_r($rows);
 
 	//열 카운트
-	$cols = (count($spreadData, COUNT_RECURSIVE) / count($spreadData)) - 1;
+	$cols = ( count( $spreadData, COUNT_RECURSIVE ) / count( $spreadData ) ) - 1;
 
 	//excel Data 배열 생성
-	for ($iLoop1 = 1; $iLoop1 < $rows + 1; ++$iLoop1) {
+	for ( $iLoop1 = 1; $iLoop1 < $rows + 1; ++$iLoop1 ) {
 		${"insertData" . $iLoop1} = array();
 	}
 
 
 
 	//데이터 삽입
-	for ($iLoop1 = 0; $iLoop1 < $rows; ++$iLoop1) {
-		for ($iLoop2 = 0; $iLoop2 < $cols; ++$iLoop2) {
-			${"insertData" . $iLoop1}[$iLoop2] = $spreadData[$iLoop1][$iLoop2];
+	for ( $iLoop1 = 0; $iLoop1 < $rows; ++$iLoop1 ) {
+		for ( $iLoop2 = 0; $iLoop2 < $cols; ++$iLoop2 ) {
+			${"insertData" . $iLoop1}[ $iLoop2 ] = $spreadData[ $iLoop1 ][ $iLoop2 ];
 		}
 		//echo '<br>';
 	}
 
 
 	//필수 데이터 체크
-	for ($iLoop1 = 1; $iLoop1 < $rows; ++$iLoop1) {
-		while (true) {
+	for ( $iLoop1 = 1; $iLoop1 < $rows; ++$iLoop1 ) {
+		while ( true ) {
 			$row = 1;
-			if (empty(${"insertData" . $iLoop1}[0])) {
-				$row = $row + $iLoop1;
+			if (empty( ${"insertData" . $iLoop1}[0] )) {
+				$row       = $row + $iLoop1;
 				$errorCode = "error code: " . $row . "번째 행의 필수 항목(" . ${"insertData0"}[0] . ")을 입력 바랍니다.";
 				echo "<script>alert('엑셀 데이터를 삽입할 수 없습니다.\\n$errorCode')</script>";
 				echo "<script>history.back()</script>";
 				exit();
 
 			}
-			if (empty(${"insertData" . $iLoop1}[1])) {
-				$row = $row + $iLoop1;
+			if (empty( ${"insertData" . $iLoop1}[1] )) {
+				$row       = $row + $iLoop1;
 				$errorCode = "error code: " . $row . "번째 행의 필수 항목(" . ${"insertData0"}[1] . ")을 입력 바랍니다.";
 				echo "<script>alert('엑셀 데이터를 삽입할 수 없습니다.\\n$errorCode')</script>";
 				echo "<script>history.back()</script>";
 				exit();
 			}
-			if (empty(${"insertData" . $iLoop1}[5])) {
-				$row = $row + $iLoop1;
+			if (empty( ${"insertData" . $iLoop1}[5] )) {
+				$row       = $row + $iLoop1;
 				$errorCode = "error code: " . $row . "번째 행의 필수 항목(" . ${"insertData0"}[5] . ")을 입력 바랍니다.";
 				echo "<script>alert('엑셀 데이터를 삽입할 수 없습니다.\\n$errorCode')</script>";
 				echo "<script>history.back()</script>";
 				exit();
 			}
-			if (empty(${"insertData" . $iLoop1}[6])) {
-				$row = $row + $iLoop1;
+			if (empty( ${"insertData" . $iLoop1}[6] )) {
+				$row       = $row + $iLoop1;
 				$errorCode = "error code: " . $row . "번째 행의 필수 항목(" . ${"insertData0"}[6] . ")을 입력 바랍니다.";
 				echo "<script>alert('엑셀 데이터를 삽입할 수 없습니다.\\n$errorCode')</script>";
 				echo "<script>history.back()</script>";
 				exit();
 			}
-			if (empty(${"insertData" . $iLoop1}[7])) {
-				$row = $row + $iLoop1;
+			if (empty( ${"insertData" . $iLoop1}[7] )) {
+				$row       = $row + $iLoop1;
 				$errorCode = "error code: " . $row . "번째 행의 필수 항목(" . ${"insertData0"}[7] . ")을 입력 바랍니다.";
 				echo "<script>alert('엑셀 데이터를 삽입할 수 없습니다.\\n$errorCode')</script>";
 				echo "<script>history.back()</script>";
@@ -122,69 +122,69 @@ try {
 
 	//DB 변수 초기화
 	//변수 정리
-	$cpType = '';
-	$cpName = '';
+	$cpType     = '';
+	$cpName     = '';
 	$cpPhoneNum = '';
-	$cpFaxNum = '';
-	$cpEmail = '';
-	$cpAddress = '';
-	$cpRegiNum = '';
-	$cpCeoName = '';
-	$cpManager = '';
-	$cpUptae = '';
-	$cpUpjong = '';
-	$count = 0;
+	$cpFaxNum   = '';
+	$cpEmail    = '';
+	$cpAddress  = '';
+	$cpRegiNum  = '';
+	$cpCeoName  = '';
+	$cpManager  = '';
+	$cpUptae    = '';
+	$cpUpjong   = '';
+	$count      = 0;
 
 
-	for ($iLoop1 = 1; $iLoop1 < $rows; ++$iLoop1) {
+	for ( $iLoop1 = 1; $iLoop1 < $rows; ++$iLoop1 ) {
 		//Data
-		for ($iLoop2 = 0; $iLoop2 < $cols; ++$iLoop2) {
+		for ( $iLoop2 = 0; $iLoop2 < $cols; ++$iLoop2 ) {
 			if ($iLoop2 == 0) {
-				$cpType = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpType = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 1) {
-				$cpName = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpName = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 2) {
-				$cpPhoneNum = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpPhoneNum = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 3) {
-				$cpFaxNum = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpFaxNum = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 4) {
-				$cpEmail = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpEmail = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 5) {
-				$cpAddress = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpAddress = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 6) {
-				$cpRegiNum = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpRegiNum = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 7) {
-				$cpCeoName = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpCeoName = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 8) {
-				$cpManager = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpManager = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 9) {
-				$cpUptae = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpUptae = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 			if ($iLoop2 == 10) {
-				$cpUpjong = isset(${"insertData" . $iLoop1}[$iLoop2]) ? ${"insertData" . $iLoop1}[$iLoop2] : '';
+				$cpUpjong = isset( ${"insertData" . $iLoop1}[ $iLoop2 ] ) ? ${"insertData" . $iLoop1}[ $iLoop2 ] : '';
 			}
 		}
 		//Escape String
-		$cpType = $_mysqli->real_escape_string($cpType);
-		$cpName = $_mysqli->real_escape_string($cpName);
-		$cpPhoneNum = $_mysqli->real_escape_string($cpPhoneNum);
-		$cpFaxNum = $_mysqli->real_escape_string($cpFaxNum);
-		$cpEmail = $_mysqli->real_escape_string($cpEmail);
-		$cpAddress = $_mysqli->real_escape_string($cpAddress);
-		$cpRegiNum = $_mysqli->real_escape_string($cpRegiNum);
-		$cpCeoName = $_mysqli->real_escape_string($cpCeoName);
-		$cpManager = $_mysqli->real_escape_string($cpManager);
-		$cpUptae = $_mysqli->real_escape_string($cpUptae);
-		$cpUpjong = $_mysqli->real_escape_string($cpUpjong);
+		$cpType     = $_mysqli->real_escape_string( $cpType );
+		$cpName     = $_mysqli->real_escape_string( $cpName );
+		$cpPhoneNum = $_mysqli->real_escape_string( $cpPhoneNum );
+		$cpFaxNum   = $_mysqli->real_escape_string( $cpFaxNum );
+		$cpEmail    = $_mysqli->real_escape_string( $cpEmail );
+		$cpAddress  = $_mysqli->real_escape_string( $cpAddress );
+		$cpRegiNum  = $_mysqli->real_escape_string( $cpRegiNum );
+		$cpCeoName  = $_mysqli->real_escape_string( $cpCeoName );
+		$cpManager  = $_mysqli->real_escape_string( $cpManager );
+		$cpUptae    = $_mysqli->real_escape_string( $cpUptae );
+		$cpUpjong   = $_mysqli->real_escape_string( $cpUpjong );
 
 		//DB Query
 		$query = "
@@ -198,30 +198,30 @@ try {
 		//결과 데이터
 		$result = false;
 
-		$_result = $_mysqli->query($query);
+		$_result = $_mysqli->query( $query );
 
 		//insert_Error
 		if (!$_result) {
 			$code = 501;
-			$msg = "등록 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
-			throw new mysqli_sql_exception($msg, $code);
+			$msg  = "등록 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
+			throw new mysqli_sql_exception( $msg, $code );
 		}
 		//insert_OK
 		if ($_result) {
 			$count++;
-			$result = true;
-			$query = '';
-			$cpType = '';
-			$cpName = '';
+			$result     = true;
+			$query      = '';
+			$cpType     = '';
+			$cpName     = '';
 			$cpPhoneNum = '';
-			$cpFaxNum = '';
-			$cpEmail = '';
-			$cpAddress = '';
-			$cpRegiNum = '';
-			$cpCeoName = '';
-			$cpManager = '';
-			$cpUptae = '';
-			$cpUpjong = '';
+			$cpFaxNum   = '';
+			$cpEmail    = '';
+			$cpAddress  = '';
+			$cpRegiNum  = '';
+			$cpCeoName  = '';
+			$cpManager  = '';
+			$cpUptae    = '';
+			$cpUpjong   = '';
 		}
 		//commit
 		$_mysqli->commit();
@@ -230,13 +230,13 @@ try {
 
 } catch (mysqli_sql_exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 	$mysqli->rollBack();
 } catch (Exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 	$mysqli->rollBack();
 } finally {
 
@@ -288,9 +288,8 @@ try {
 	</html>
 
 	<script type="text/javascript">
-
 		function goIndex() {
-			setTimeout('go_url()', 5000)  // 5초후 go_url() 함수를 호출한다.
+			setTimeout('go_url()', 5000) // 5초후 go_url() 함수를 호출한다.
 		}
 
 		function go_url() {

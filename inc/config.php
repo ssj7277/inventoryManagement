@@ -5,5 +5,5 @@
 //session
 //session_start();
 
-require_once('/var/www/html/inven/inc/define.php');
-require_once('/var/www/html/inven/inc/function.php');
+require_once( '/var/www/html/inven/inc/define.php' );
+require_once( '/var/www/html/inven/inc/function.php' );

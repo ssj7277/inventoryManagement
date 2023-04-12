@@ -5,52 +5,52 @@ require_once __DIR__ . '/../inc/config.php';
 //변수 정리
 $arrRtn = array(
     'code' => 500,
-    'msg' => ''
+    'msg'  => ''
 );
 
-error_reporting(E_ALL);
+error_reporting( E_ALL );
 
-ini_set('display_errors', '1');
+ini_set( 'display_errors', '1' );
 
 //print_r($_POST);
 
 try {
 
     //변수 정리
-    $cpType = isset($_POST['cpType']) ? $_POST['cpType'] : '';
-    $cpName = isset($_POST['cpName']) ? $_POST['cpName'] : '';
-    $cpPhoneNum = isset($_POST['cpPhoneNum']) ? $_POST['cpPhoneNum'] : '';
-    $cpFaxNum = isset($_POST['cpFaxNum']) ? $_POST['cpFaxNum'] : '';
-    $cpEmail = isset($_POST['cpEmail']) ? $_POST['cpEmail'] : '';
-    $cpAddress = isset($_POST['cpAddress']) ? $_POST['cpAddress'] : '';
-    $cpRegiNum = isset($_POST['cpRegiNum']) ? $_POST['cpRegiNum'] : '';
-    $cpCeoName = isset($_POST['cpCeoName']) ? $_POST['cpCeoName'] : '';
-    $cpManager = isset($_POST['cpManager']) ? $_POST['cpManager'] : '';
-    $cpUptae = isset($_POST['cpUptae']) ? $_POST['cpUptae'] : '';
-    $cpUpjong = isset($_POST['cpUpjong']) ? $_POST['cpUpjong'] : '';
+    $cpType     = isset( $_POST['cpType'] ) ? $_POST['cpType'] : '';
+    $cpName     = isset( $_POST['cpName'] ) ? $_POST['cpName'] : '';
+    $cpPhoneNum = isset( $_POST['cpPhoneNum'] ) ? $_POST['cpPhoneNum'] : '';
+    $cpFaxNum   = isset( $_POST['cpFaxNum'] ) ? $_POST['cpFaxNum'] : '';
+    $cpEmail    = isset( $_POST['cpEmail'] ) ? $_POST['cpEmail'] : '';
+    $cpAddress  = isset( $_POST['cpAddress'] ) ? $_POST['cpAddress'] : '';
+    $cpRegiNum  = isset( $_POST['cpRegiNum'] ) ? $_POST['cpRegiNum'] : '';
+    $cpCeoName  = isset( $_POST['cpCeoName'] ) ? $_POST['cpCeoName'] : '';
+    $cpManager  = isset( $_POST['cpManager'] ) ? $_POST['cpManager'] : '';
+    $cpUptae    = isset( $_POST['cpUptae'] ) ? $_POST['cpUptae'] : '';
+    $cpUpjong   = isset( $_POST['cpUpjong'] ) ? $_POST['cpUpjong'] : '';
 
     //print_r($_POST);
 
 
     //파라미터 체크
-    if (empty($cpType) || empty($cpName) || empty($cpRegiNum)) {
+    if (empty( $cpType ) || empty( $cpName ) || empty( $cpRegiNum )) {
         $code = 404;
-        $msg = "필수 항목을 입력해 주세요";
-        throw new Exception($msg, $code);
+        $msg  = "필수 항목을 입력해 주세요";
+        throw new Exception( $msg, $code );
     }
 
     //Escape String
-    $cpType = $_mysqli->real_escape_string($cpType);
-    $cpName = $_mysqli->real_escape_string($cpName);
-    $cpPhoneNum = $_mysqli->real_escape_string($cpPhoneNum);
-    $cpFaxNum = $_mysqli->real_escape_string($cpFaxNum);
-    $cpEmail = $_mysqli->real_escape_string($cpEmail);
-    $cpAddress = $_mysqli->real_escape_string($cpAddress);
-    $cpRegiNum = $_mysqli->real_escape_string($cpRegiNum);
-    $cpCeoName = $_mysqli->real_escape_string($cpCeoName);
-    $cpManager = $_mysqli->real_escape_string($cpManager);
-    $cpUptae = $_mysqli->real_escape_string($cpUptae);
-    $cpUpjong = $_mysqli->real_escape_string($cpUpjong);
+    $cpType     = $_mysqli->real_escape_string( $cpType );
+    $cpName     = $_mysqli->real_escape_string( $cpName );
+    $cpPhoneNum = $_mysqli->real_escape_string( $cpPhoneNum );
+    $cpFaxNum   = $_mysqli->real_escape_string( $cpFaxNum );
+    $cpEmail    = $_mysqli->real_escape_string( $cpEmail );
+    $cpAddress  = $_mysqli->real_escape_string( $cpAddress );
+    $cpRegiNum  = $_mysqli->real_escape_string( $cpRegiNum );
+    $cpCeoName  = $_mysqli->real_escape_string( $cpCeoName );
+    $cpManager  = $_mysqli->real_escape_string( $cpManager );
+    $cpUptae    = $_mysqli->real_escape_string( $cpUptae );
+    $cpUpjong   = $_mysqli->real_escape_string( $cpUpjong );
 
     //DB Query
     $query = "
@@ -62,7 +62,7 @@ try {
     ";
 
 
-    if ($_mysqli->query($query) === TRUE) {
+    if ($_mysqli->query( $query ) === TRUE) {
 
         echo "회사 정보가 정상적으로 제출 되었습니다.";
     } else {
@@ -72,12 +72,12 @@ try {
 
 } catch (mysqli_sql_exception $e) {
     $arrRtn['code'] = $e->getCode();
-    $arrRtn['msg'] = $e->getMessage();
-    echo json_encode($arrRtn);
+    $arrRtn['msg']  = $e->getMessage();
+    echo json_encode( $arrRtn );
 } catch (Exception $e) {
     $arrRtn['code'] = $e->getCode();
-    $arrRtn['msg'] = $e->getMessage();
-    echo json_encode($arrRtn);
+    $arrRtn['msg']  = $e->getMessage();
+    echo json_encode( $arrRtn );
 } finally {
 
 }
@@ -119,9 +119,8 @@ try {
     </html>
 
     <script type="text/javascript">
-
         function goIndex() {
-            setTimeout('go_url()', 5000)  // 5초후 go_url() 함수를 호출한다.
+            setTimeout('go_url()', 5000) // 5초후 go_url() 함수를 호출한다.
         }
 
         function go_url() {

@@ -5,15 +5,15 @@ require_once __DIR__ . '/../inc/config.php';
 //변수 정리
 $arrRtn = array(
 	'code' => 500,
-	'msg' => ''
+	'msg'  => ''
 );
 
 
 try {
 	//변수 정리
-	$searchType = isset($_POST['searchType']) ? $_POST['searchType'] : '';
-	$searchText = isset($_POST['searchText']) ? $_POST['searchText'] : '';
-	$cpSerial = isset($_POST['seq']) ? $_POST['seq'] : '0';
+	$searchType = isset( $_POST['searchType'] ) ? $_POST['searchType'] : '';
+	$searchText = isset( $_POST['searchText'] ) ? $_POST['searchText'] : '';
+	$cpSerial   = isset( $_POST['seq'] ) ? $_POST['seq'] : '0';
 
 	//print_r($_POST);
 
@@ -24,13 +24,13 @@ try {
 		WHERE serial = '{$cpSerial}'
 	";
 
-	$delete_result = $_mysqli->query($query);
+	$delete_result = $_mysqli->query( $query );
 
 
 	if (!$delete_result) {
 		$code = 501;
-		$msg = "삭제 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
-		throw new mysqli_sql_exception($msg, $code);
+		$msg  = "삭제 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
+		throw new mysqli_sql_exception( $msg, $code );
 	}
 
 	//성공
@@ -43,12 +43,12 @@ try {
 
 } catch (mysqli_sql_exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 } catch (Exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 } finally {
 
 }
@@ -82,12 +82,11 @@ try {
 	</html>
 
 	<script type="text/javascript">
-
 		window.onload = function () {
 			sendPost();
 		}
+
 		function sendPost() {
 			document.getElementById('delete_ok').submit();
 		}
-
 	</script>

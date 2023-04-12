@@ -6,20 +6,20 @@ require_once __DIR__ . '/../lib/paging.php';
 //변수 정리
 $arrRtn = array(
 	'code' => 500,
-	'msg' => ''
+	'msg'  => ''
 );
 
 
 try {
 
 	//파라미터 정리
-	$cpSerial = isset($_POST['seq']) ? $_POST['seq'] : 0;
-	$page = isset($_POST['page']) ? $_POST['page'] : 1;
-	$searchType = isset($_POST['searchType']) ? $_POST['searchType'] : '';
-	$searchText = isset($_POST['searchText']) ? $_POST['searchText'] : '';
+	$cpSerial   = isset( $_POST['seq'] ) ? $_POST['seq'] : 0;
+	$page       = isset( $_POST['page'] ) ? $_POST['page'] : 1;
+	$searchType = isset( $_POST['searchType'] ) ? $_POST['searchType'] : '';
+	$searchText = isset( $_POST['searchText'] ) ? $_POST['searchText'] : '';
 
 	//필수 파라미터 체크
-	if (!is_numeric($cpSerial)) {
+	if (!is_numeric( $cpSerial )) {
 		$cpSerial = 0;
 	}
 
@@ -29,7 +29,7 @@ try {
 		WHERE serial = {$cpSerial}
 		";
 
-	$cp_result = $_mysqli->query($query1);
+	$cp_result = $_mysqli->query( $query1 );
 
 	//DB 댓글 조회
 	$query2 = "
@@ -37,11 +37,11 @@ try {
 		WHERE cpNum = {$cpSerial} AND isActive = 'y'
 		";
 
-	$comm_result = $_mysqli->query($query2);
+	$comm_result = $_mysqli->query( $query2 );
 	if (!$cp_result || !$comm_result) {
 		$code = 502;
-		$msg = "조회 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
-		throw new mysqli_sql_exception($msg, $code);
+		$msg  = "조회 중 오류가 발생했습니다.(code {$code})\n관리자에게 문의해 주세요.";
+		throw new mysqli_sql_exception( $msg, $code );
 	}
 	//DB 회사 조회
 	$dbCp = $cp_result->fetch_array();
@@ -53,12 +53,12 @@ try {
 
 } catch (mysqli_sql_exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 } catch (Exception $e) {
 	$arrRtn['code'] = $e->getCode();
-	$arrRtn['msg'] = $e->getMessage();
-	echo json_encode($arrRtn);
+	$arrRtn['msg']  = $e->getMessage();
+	echo json_encode( $arrRtn );
 } finally {
 
 }
@@ -193,12 +193,12 @@ try {
 								//댓글 리스트
 								if ($dbCommRows > 0) {
 									$no = $dbCommRows;
-									while ($dbComm = $comm_result->fetch_array()) {
+									while ( $dbComm = $comm_result->fetch_array() ) {
 										//변수 정리
-										$commSerial = $dbComm['serial'];
+										$commSerial  = $dbComm['serial'];
 										$commContent = $dbComm['content'];
-										$commName = $dbComm['name'];
-										$commDate = $dbComm['enterdate'];
+										$commName    = $dbComm['name'];
+										$commDate    = $dbComm['enterdate'];
 										?>
 										<tr>
 											<td style="text-align:left" ;>
@@ -406,6 +406,7 @@ try {
 
 	//댓글 생성
 	document.getElementById("commEditBtn").addEventListener('click', commEditBtn);
+
 	function commEditBtn() {
 		location.href = "javascript:void(0)";
 		if ($.trim($("#commEditUser").val()) == "") {
@@ -503,6 +504,5 @@ try {
 			}
 		}
 	};
-	//댓글 삭제.
-
+//댓글 삭제.
 </script>
